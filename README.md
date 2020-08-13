@@ -23,3 +23,4 @@ Päivämäärä | Aika | Tehtävä
  1. *React
 ``` Tähän tulee React koodia```
 
+steam API : https://partner.steamgames.com/doc/webapi_overview
