@@ -14,16 +14,13 @@ Päivämäärä | Aika | Tehtävä
 
 ### *Käytetyt Kielet :*
 
-### **HTML**
-
-### **CSS**
-
-### **Node**
-
-### **React**
-
-
-
-
+ 1. HTML
+``` tähän tulee html koodia```
+ 1. CSS
+``` tähän tulee CSS koodia```
+ 1. *Node
+``` Tähän tulee Node koodia```
+ 1. *React
+``` Tähän tulee React koodia```
 
 
