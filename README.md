@@ -4,6 +4,12 @@
 
 # Asennus Ohjeet 
 
+
+Päivämäärä | Aika | Tehtävä
+-----------|------|--------
+13.8.20    | 9:39 | ReadMe filen tekemistä
+
+
 # Koodikieli esimerkit
 
 ### *Käytetyt Kielet :*
