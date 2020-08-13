@@ -23,6 +23,3 @@ Päivämäärä | Aika | Tehtävä
  1. *React
 ``` Tähän tulee React koodia```
 
-GET /ISteamNews/GetNewsForApp/v2/?appid=440&count=3\r\n
-Host: api.steampowered.com/r/n
-Content-Length: 0\r\n\r\n
