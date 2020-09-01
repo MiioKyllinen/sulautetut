@@ -18,8 +18,8 @@ function Weather() {
 
                 ]} 
                 style={{data:
-                        { stroke : "green", strokeWidth: 5}
-                        
+                        {   stroke : "green", strokeWidth: 5}
+
                 }}
                 x='experiment'                
                 y='actual'
