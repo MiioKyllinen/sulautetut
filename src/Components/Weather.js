@@ -2,19 +2,21 @@ import React from 'react'
 import Victory, { VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryLine, VictoryTheme, VictoryGroup } from 'victory'
 import ReactDOM from 'react-dom'
 
+
 function Weather() {
 
+
   const days = [
-    { x: new Date(2020, 1, 1) },
-    { x: new Date(2020, 2, 1) },
-    { x: new Date(2020, 3, 1) },
-    { x: new Date(2020, 4, 1) },
-    { x: new Date(2020, 5, 1) },
-    { x: new Date(2020, 6, 1) },
-    { x: new Date(2020, 7, 1) },
-    { x: new Date(2020, 8, 1) },
-    { x: new Date(2020, 9, 1) },
-    { x: new Date(2020, 10, 1) }
+    {new: Date(2020, 1, 1) },
+    { new: Date(2020, 2, 1) },
+    { new: Date(2020, 3, 1) },
+    { new: Date(2020, 4, 1) },
+    { new: Date(2020, 5, 1) },
+    { new: Date(2020, 6, 1) },
+    { new: Date(2020, 7, 1) },
+    { new: Date(2020, 8, 1) },
+    { new: Date(2020, 9, 1) },
+    { new: Date(2020, 10, 1) }
   ]
 
   const Temperature = [
@@ -46,39 +48,40 @@ function Weather() {
 
   return (
 
-
+    
 
     <VictoryChart
       theme={VictoryTheme.material}
-      height={500} width={1000}
+      height={700} width={1000}
       domainPadding={{ x: 30, y: 5 }}
     >
 
-      <VictoryAxis
+     {/* <VictoryAxis
         scale="time"
         standalone={false}
         tickValues={days}
-        tickFormat={
+        tickCount= {10}
+           tickFormat={
           (x) => {
             return 'Day'
-            /* if (x.getFullYear() === 2000) {
+             if (x.getFullYear() === 2000) {
               return x.getFullYear();
             }
             if (x.getFullYear() % 5 === 0) {
               return x.getFullYear().toString().slice(2);
-            } */
+            } 
           }
-        }
+        } 
 
-      />
+      /> */}
 
       < VictoryAxis dependentAxis
         domain={[-20, 30]}
         offsetX={50}
         orientation="left"
         standalone={false}
-        style={{ fill: "#458ca8" }
-        }
+        style={{ticklabels: {fill: "#FFFFFF" }}}
+        
       />
 
       <VictoryLine
@@ -102,7 +105,7 @@ function Weather() {
         ]}
         domain={{
           x: [new Date(2020, 1, 1), new Date(2020, 10, 1)],
-          y: [-20, 30]
+          y: [0, 30]
         }}
         scale={{ x: "time", y: "linear" }}
         standalone={false}
@@ -115,8 +118,8 @@ function Weather() {
         orientation="right"
         offsetX={50}
         standalone={false}
-        style={{ fill: "#458ca8" }}
-      />
+        style={{tickLabels: { fill: "#32CD32" }}}
+        />
 
       <VictoryBar //seuraa oikeaa data puoliskoa
         style={{ data: { fill: "#458ca8" } }}
@@ -125,7 +128,6 @@ function Weather() {
           x: [new Date(2020, 1, 1), new Date(2020, 10, 1)],
           y: [0, 100]
         }}
-        scale={{ x: "time", y: "linear" }}
         standalone={false}
       />
 
@@ -134,6 +136,7 @@ function Weather() {
 
     </VictoryChart>
   )
+
 }
 
 
