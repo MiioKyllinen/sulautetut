@@ -20,15 +20,15 @@ function Weather() {
   ]
 
   const Temperature = [
-    { x: new Date(2020, 1, 1), y: 10 },
-    { x: new Date(2020, 2, 1), y: -6 },
-    { x: new Date(2020, 3, 1), y: 13 },
-    { x: new Date(2020, 4, 1), y: 6 },
-    { x: new Date(2020, 5, 1), y: 10 },
-    { x: new Date(2020, 6, 1), y: -10 },
-    { x: new Date(2020, 7, 1), y: 3 },
-    { x: new Date(2020, 8, 1), y: 10 },
-    { x: new Date(2020, 9, 1), y: 20 },
+    { x: 1.1, y: 10 },
+    { x: 2.1, y: -6 },
+    { x: 3.1, y: 13 },
+    { x: 4.1, y: 6 },
+    { x: 5.1, y: 10 },
+    { x: 6.1, y: -10 },
+    { x: 7.1, y: 3 },
+    { x: 8.1, y: 10 },
+    { x: 9.1, y: 20 },
   ]
 
   const Humidity = [
@@ -47,97 +47,42 @@ function Weather() {
 
 
   return (
+  
+  <VictoryChart
+    theme={VictoryTheme.material}
+    height={300} width={700}
+    domainPadding={{ x: 0, y: 0 }}
+  >
 
-    
+    <VictoryAxis dependentAxis
+      domain={[-20, 30]}
+      offsetX={50}
+      orientation="left"
+      standalone={false}
+      tickValues={[30, 20, 10, 0, -10, -20]}
+      style={{ ticklabels: { fill: "#7fe5f0" } }} />
 
-    <VictoryChart
-      theme={VictoryTheme.material}
-      height={700} width={1000}
-      domainPadding={{ x: 30, y: 5 }}
-    >
+    <VictoryLine
+      style={{
+        data: { stroke: "#1d99bb" },
+        parent: { border: "1px solid #ccc" }
+      }}
+      domain={{
+        y: [-20, 30]
+      }}
+      scale={{ x: "time", y: "linear" }}
+      standalone={false}
+      data={Temperature}
+      interpolation="monotoneX" />
 
-     {/* <VictoryAxis
-        scale="time"
-        standalone={false}
-        tickValues={days}
-        tickCount= {10}
-           tickFormat={
-          (x) => {
-            return 'Day'
-             if (x.getFullYear() === 2000) {
-              return x.getFullYear();
-            }
-            if (x.getFullYear() % 5 === 0) {
-              return x.getFullYear().toString().slice(2);
-            } 
-          }
-        } 
 
-      /> */}
-
-      < VictoryAxis dependentAxis
-        domain={[-20, 30]}
-        offsetX={50}
-        orientation="left"
-        standalone={false}
-        style={{ticklabels: {fill: "#FFFFFF" }}}
-        
-      />
-
-      <VictoryLine
-        style={{
-          data: { stroke: "#f01616" },
-          parent: { border: "1px solid #ccc" }
-        }}
-        domain={{
-          x: [new Date(2020, 1, 1), new Date(2020, 10, 1)],
-          y: [-20, 30]
-        }}
-        scale={{ x: "time", y: "linear" }}
-        standalone={false}
-        data={Temperature}
-        interpolation="monotoneX"
-      />
-      <VictoryLine // Keskilinja kummallekkin data linjalle
-        data={[
-          { x: new Date(2020, 1, 1), y: 0 },
-          { x: new Date(2020, 10, 1), y: 0 }
-        ]}
-        domain={{
-          x: [new Date(2020, 1, 1), new Date(2020, 10, 1)],
-          y: [0, 30]
-        }}
-        scale={{ x: "time", y: "linear" }}
-        standalone={false}
-        style={{ data: { fill: "#999999" } }}
-
-      />
-
-      <VictoryAxis dependentAxis //oikea data puolisko
-        domain={[0, 100]}
-        orientation="right"
-        offsetX={50}
-        standalone={false}
-        style={{tickLabels: { fill: "#32CD32" }}}
-        />
-
-      <VictoryBar //seuraa oikeaa data puoliskoa
-        style={{ data: { fill: "#458ca8" } }}
-        data={Humidity}
-        domain={{
-          x: [new Date(2020, 1, 1), new Date(2020, 10, 1)],
-          y: [0, 100]
-        }}
-        standalone={false}
-      />
+  </VictoryChart>
 
 
 
 
-    </VictoryChart>
   )
-
-}
+} 
 
 
 
