@@ -23,12 +23,12 @@ function Weather() {
     { x: new Date(2020, 1, 1), y: 10 },
     { x: new Date(2020, 2, 1), y: -6 },
     { x: new Date(2020, 3, 1), y: 13 },
-    { x: new Date(2020, 4, 1), y: 6 },
-    { x: new Date(2020, 5, 1), y: 10 },
+    { x: new Date(2020, 4, 1), y: 15 },
+    { x: new Date(2020, 5, 1), y: 30 },
     { x: new Date(2020, 6, 1), y: -10 },
     { x: new Date(2020, 7, 1), y: 3 },
     { x: new Date(2020, 8, 1), y: 10 },
-    { x: new Date(2020, 9, 1), y: 20 },
+    { x: new Date(2020, 9, 1), y: 5 },
   ]
 
   const Humidity = [
@@ -52,7 +52,7 @@ function Weather() {
 
     <VictoryChart
       theme={VictoryTheme.material}
-      height={700} width={1000}
+      height={500} width={800}
       domainPadding={{ x: 30, y: 5 }}
     >
 
@@ -80,6 +80,7 @@ function Weather() {
         offsetX={50}
         orientation="left"
         standalone={false}
+        tickValues={[30,20,10,0,-10,-20]}
         style={{ticklabels: {fill: "#FFFFFF" }}}
         
       />
@@ -96,18 +97,18 @@ function Weather() {
         scale={{ x: "time", y: "linear" }}
         standalone={false}
         data={Temperature}
-        interpolation="monotoneX"
+        interpolation="natural"
       />
       <VictoryLine // Keskilinja kummallekkin data linjalle
         data={[
-          { x: new Date(2020, 1, 1), y: 0 },
-          { x: new Date(2020, 10, 1), y: 0 }
+          { x: new Date(2020, 1, 1,), y: 0 },
+          { x: new Date(2020, 20, 1,), y: 0 }
         ]}
         domain={{
           x: [new Date(2020, 1, 1), new Date(2020, 10, 1)],
-          y: [0, 30]
         }}
         scale={{ x: "time", y: "linear" }}
+        tickValues={[new Date(2020, 1, 1), new Date(2020, 10, 1)]}
         standalone={false}
         style={{ data: { fill: "#999999" } }}
 
@@ -117,6 +118,7 @@ function Weather() {
         domain={[0, 100]}
         orientation="right"
         offsetX={50}
+        tickValues={[100,80,60,40,20,0]}
         standalone={false}
         style={{tickLabels: { fill: "#32CD32" }}}
         />
