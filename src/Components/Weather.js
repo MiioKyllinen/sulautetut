@@ -1,25 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Victory, { VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryLine, VictoryTheme, VictoryGroup, VictoryScatter, VictoryTooltip, VictoryVoronoiContainer } from 'victory'
 import ReactDOM from 'react-dom'
 
 
 function Weather() {
 
+  const today = new Date();
+  const date = today.getDate() + "." + parseInt(today.getMonth() + 1) + "." + today.getFullYear();
 
-  const days = [
-    { new: Date(2020, 1, 1) },
-    { new: Date(2020, 2, 1) },
-    { new: Date(2020, 3, 1) },
-    { new: Date(2020, 4, 1) },
-    { new: Date(2020, 5, 1) },
-    { new: Date(2020, 6, 1) },
-    { new: Date(2020, 7, 1) },
-    { new: Date(2020, 8, 1) },
-    { new: Date(2020, 9, 1) },
-    { new: Date(2020, 10, 1) }
-  ]
+  const initWeather = [];
+  const [weather,setWeather] = useState(initWeather);
 
-  const Temperature = [
+  fetch('https://funcvariaiot.azurewebsites.net/api/HttpTriggerGetIotData?code=qO5qkShg0osHqY0BB2nfXI/anPgQ/K/3mIF7VTCFfaTdrvo6wl6DKw==&amount=50')
+    .then(response => response.json())
+    .then(json => setWeather([...json]))
+
+  let humtempkey = 1;
+  let chartTempData = [];
+  let chartHumData = [];
+  const rows = () => Weather.slice(0, 25).reverse().map(temphum => {
+    const measurementDate = temphum.PublishedAt.split('T')[0].split('-')[2] + '.' + temphum.PublishedAt.split('T')[0].split('-')[1] + '.' + temphum.PublishedAt.split('T')[0].split('-')[0];
+    const measurementTime = temphum.PublishedAt.split('T')[1].split(':')[0] + ':' + temphum.PublishedAt.split('T')[1].split(':')[1];
+    chartTempData.push ({ x: String(measurementTime), y: parseInt(temphum.Temp) });
+    chartHumData.push({ experiment: String(measurementTime), actual: parseInt(temphum.Hum), label: String(temphum.Hum.Split('.')[0])+"%"});
+    return <div key={humtempkey++}><b>Pvm: </b>{measurementDate}, <b>klo: </b> {measurementDate} <b>ilmankosteus: </b> {temphum.Hum.split('.')[0]}% <b>Lämpötila:</b> {temphum.Temp.split('.')[0]}°C</div>
+  })
+
+  
+  const Temperature = chartTempData /* [ // lämpötilan data table
     { x: new Date(2020, 1, 1), y: 4 },
     { x: new Date(2020, 1, 2), y: 10 },
     { x: new Date(2020, 1, 3), y: 14 },
@@ -30,9 +38,9 @@ function Weather() {
     { x: new Date(2020, 1, 8), y: 20 },
     { x: new Date(2020, 1, 9), y: 25 },
     { x: new Date(2020, 1, 10), y: 20 },
-  ]
+  ] */
 
-  const Humidity = [
+  const Humidity = chartHumData  /* [  // kosteuden data table
     { x: new Date(2020, 1, 1), y: 10 },
     { x: new Date(2020, 1, 2), y: 27 },
     { x: new Date(2020, 1, 3), y: 16 },
@@ -43,26 +51,12 @@ function Weather() {
     { x: new Date(2020, 1, 8), y: 76 },
     { x: new Date(2020, 1, 9), y: 52 },
     { x: new Date(2020, 1, 10), y: 80 },
-  ]
-
-  const CustomBackground = props => {
-    return (
-      <image
-        href={"https://cdn.wallpapersafari.com/0/10/L2YR4V.jpg"}
-        {...props}
-      />
-    );
-  };
-
-
-
-
+  ]     */
 
 return (
   <div>
     <VictoryChart
       containerComponent={<VictoryVoronoiContainer />}
-      backgroundComponent={<CustomBackground />}
       theme={VictoryTheme.material}
       height={300} width={600}
       domainPadding={{ x: 0, y: 0 }}
@@ -87,42 +81,42 @@ return (
               style={{ ticklabels: { fill: "#7fe5f0" } }} />
           */}
 
-      <VictoryLine
+      <VictoryLine // lisää lämpötila viivan
         style={{
-          data: { stroke: "#1d99bb" },
-          parent: { border: "1000px solid #ccc" }
+          data: { stroke: "#1d99bb" }, // määrittää linjan värin
+          parent: { border: "1000px solid #ccc" } 
         }}
         domain={{
-          x: [new Date(2020, 1, 1), new Date(2020, 1, 10)],
-          y: [-20, 30]
+          x: [new Date(2020, 1, 1), new Date(2020, 1, 10)], // kertoo mitä aikajanaa seuraa
+          y: [-20, 30] // kertoo minimin ja maksimin y akselille
         }}
-        scale={{ x: "time", y: "linear" }}
+        scale={{ x: "time", y: "linear" }} 
         standalone={false}
         data={Temperature}
-        interpolation="monotoneX" />
-      <VictoryScatter
+        interpolation="monotoneX" />                   
+      <VictoryScatter // lisää pienet pallot joista näkee tarkemmin lämpotilan
         style={{
           data: { fill: "#d2491b" }, labels: { fill: "tomato" }
         }}
-        size={({ active }) => active ? 5 : 3}
-        labels={({ datum }) => ` ${datum.y}°C`}
-        labelComponent={<VictoryTooltip />}
+        size={({ active }) => active ? 5 : 3} // pallojen koko
+        labels={({ datum }) => ` ${datum.y}°C`} //pallojen teksti
+        labelComponent={<VictoryTooltip />}   //lisää tooltipin pieniin palloihin 
         data={Temperature}
       />
     </VictoryChart>
 
-    <VictoryChart
-      theme={VictoryTheme.material}
-      height={400} width={700}
+    <VictoryChart // ilman kosteuden chart
+      theme={VictoryTheme.material} // chartin teema voi olla custom teema 
+      height={400} width={700} // kuinka suuri chart on
       domainPadding={{ x: 0, y: 0 }}
 
     >
-      <VictoryBar
-        cornerRadius={{ top: 5 }}
-        style={{ data: { fill: "#0067ce", width: 25 } }}
-        labels={({ datum }) => ` ${datum.y}%`}
+      <VictoryBar //ilman kosteuden bar chart
+        cornerRadius={{ top: 5 }} // tekee barin kulmista pyöreitä
+        style={{ data: { fill: "#0067ce", width: 25 } }} // kertoo värin ja barin paksuuden
+        labels={({ datum }) => ` ${datum.y}%`} // lisää % joka tulee barin päälle joka kertoo sitten kosteuden tarkasti
         labelComponent={
-          <VictoryLabel
+          <VictoryLabel //tämä päättää missä kohtaa bar charttia teksti tulee näkyviin
             dx={1.2}
             dy={0.5}
             textAnchor="start"
