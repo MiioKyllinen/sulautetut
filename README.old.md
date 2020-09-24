@@ -27,6 +27,6 @@ Päivämäärä | Aika | Tehtävä
  1. *Node
 ``` Tähän tulee Node koodia```
  1. *React
-``` Tähän tulee React koodia```
+``` const [weather,setWeather] = useState(initWeather); ```
 
 steam API : https://partner.steamgames.com/doc/webapi_overview
