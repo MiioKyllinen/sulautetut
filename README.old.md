@@ -7,7 +7,7 @@
     Nämä pitää olla asennettuna että tämä sovellus toimii:
 
     node.js
-    React
+    React (npm install react)
     Victory charts (npm install victory)
 
 # Työajan kirjanpito
@@ -21,9 +21,15 @@ Päivämäärä | Aika | Tehtävä
 ### *Käytetyt Kielet :*
 
  1. HTML
-``` tähän tulee html koodia```
- 1. CSS
-``` tähän tulee CSS koodia```
+```  <link href="favicon.ico" rel="icon" type="image/x-icon" /> ```
+ 1. JavaScript
+``` const handleComplete = (job) => {
+    const findCompleted = jobs.map((checkJob) => {
+      if (checkJob.id === job.id) {
+        checkJob.completed = !checkJob.completed;
+
+      }
+    }); ```
  1. *Node
 ``` Tähän tulee Node koodia```
  1. *React

@@ -24,7 +24,7 @@ function Weather() {
     chartTempData.push ({ x: String(measurementTime), y: parseInt(temphum.Temp) });
     chartHumData.push({ experiment: String(measurementTime), actual: parseInt(temphum.Hum), label: String(temphum.Hum.Split('.')[0])+"%"});
     return <div key={humtempkey++}><b>Pvm: </b>{measurementDate}, <b>klo: </b> {measurementDate} <b>ilmankosteus: </b> {temphum.Hum.split('.')[0]}% <b>Lämpötila:</b> {temphum.Temp.split('.')[0]}°C</div>
-  })
+  }) // etsii koko ajan tietoa ja sitten konstruktoi sen luettavampaan muotoon.
 
   
   const Temperature = chartTempData /* [ // lämpötilan data table
