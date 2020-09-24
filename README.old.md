@@ -4,6 +4,12 @@
 
 # Asennus Ohjeet 
 
+    Nämä pitää olla asennettuna että tämä sovellus toimii:
+
+    node.js
+    React
+    Victory charts (npm install victory)
+
 # Työajan kirjanpito
 Päivämäärä | Aika | Tehtävä
 -----------|------|--------
