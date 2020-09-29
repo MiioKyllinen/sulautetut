@@ -5,7 +5,8 @@
 # Asennus Ohjeet 
 
     Nämä pitää olla asennettuna että tämä sovellus toimii:
-
+    
+    router dom
     node.js
     React (npm install react)
     Victory charts (npm install victory)
@@ -26,7 +27,7 @@ Päivämäärä | Aika | Tehtävä
 ``` const handleComplete = (job) => { ```
     const findCompleted = jobs.map((checkJob) => {
       if (checkJob.id === job.id) {
-        checkJob.completed = !checkJob.completed; ``` 
+        checkJob.completed = !checkJob.completed; 
  1. Node
 ``` Tähän tulee Node koodia```
  1. *React
