@@ -1,0 +1,25 @@
+body {
+    padding: 0px;
+    background-color: royalblue;
+}
+
+button {
+    font-weight: bold;
+    background: gray;
+    border: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+  }
+
+  button:hover {
+    background: lightblue;
+  }
+
+h2 {
+ color: whitesmoke;
+    text-align: center;
+    background-color: rgb(71, 52, 247);
+    background-position: center; 
+}

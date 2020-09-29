@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 function Header() {
     return (
         <header style={headerStyle}>
-            <h1>Ajankohtaista Vantaalta</h1>
+            <h1>Ajankohtaista Vantaalta </h1>
             <Link to="/" style={linkStyle}>Home</Link> - <Link to="/weather" style={linkStyle}>Sääasema</Link> 
         </header>
     )
