@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
-import Victory, { VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryLine, VictoryTheme, VictoryGroup, VictoryScatter, VictoryTooltip, VictoryVoronoiContainer } from 'victory'
-import ReactDOM from 'react-dom'
+import { VictoryChart, VictoryBar, VictoryLabel, VictoryLine, VictoryScatter, VictoryTooltip, VictoryVoronoiContainer } from 'victory'
 import './Weather.css'
 
 
 var button = document.createElement("button");
-  button.innerHTML = "GitHub";
+button.innerHTML = "GitHub";
 
-  var body = document.getElementsByTagName("body")[0];
-  body.appendChild(button);
+var body = document.getElementsByTagName("body")[0];
+body.appendChild(button);
 
-  button.addEventListener ("click", function() {
-    window.location='https://github.com/MiioKyllinen/sulautetut'
-  });
+button.addEventListener("click", function () {   // lisää function nimellä "click" joka toimii niin että kun painaa niin tapahtuu "X"
+  window.location = 'https://github.com/MiioKyllinen/sulautetut' // vie käyttäjän sivun githubiin klikattuuaan nappia
+});
+
 
 
 function Weather() {
 
 
-  function convertUTCDateToLocalDate(date) {
+  function convertUTCDateToLocalDate(date) {    //muuttaa ajan paikalliseksi
     new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
 
     return date;
@@ -27,9 +27,30 @@ function Weather() {
   const initWeather = [];
   const [weather, setWeather] = useState(initWeather);
 
-  fetch('https://funcvariaiot.azurewebsites.net/api/HttpTriggerGetIotData?code=qO5qkShg0osHqY0BB2nfXI/anPgQ/K/3mIF7VTCFfaTdrvo6wl6DKw==&amount=50')
+  fetch('https://funcvariaiot.azurewebsites.net/api/HttpTriggerGetIotData?code=qO5qkShg0osHqY0BB2nfXI/anPgQ/K/3mIF7VTCFfaTdrvo6wl6DKw==&amount=25')
+   /* .then(response => {
+      const DeviceIdCheck = response.headers.get('content-type');
+        if (!DeviceIdCheck || !DeviceIdCheck.includes('37002e001947393035313138')) {
+          throw new TypeError("Wrong Device ID");
+        }
+        return response.json()
+        .catch((err) => {
+          console.error('Jokin meni pieleen',err);
+        }
+        
+        
+        )
+
+      }
+    ) 
+      */
+
+
     .then(response => response.json())
     .then(json => setWeather([...json]))
+
+   // .catch(error => console.error(error));
+  // if (DeviceId === 3002e001947393035313138)
 
   let humtempkey = 1;
   let chartDataTemp = [];
@@ -42,11 +63,6 @@ function Weather() {
     chartDataHum.push({ x: String(time), y: parseInt(temphum.Hum.split('.')[0]), label: String(temphum.Hum.split('.')[0]) + "%" });
     return <div key={humtempkey++}>{measurementDate}<b>Pvm: </b>{time}, <b>klo: </b> {time} <b>ilmankosteus: </b> {temphum.Hum.split('.')[0]}% <b>Lämpötila:</b> {temphum.Temp.split('.')[0]}°C</div>
   }) // etsii koko ajan tietoa ja sitten konstruktoi sen luettavampaan muotoon.
-
-  const WeatherBackground = {
-    background: '#4f4f4f',
-    color: '#4f4f4f'
-  }
 
 
   const Temperature = chartDataTemp
@@ -61,8 +77,8 @@ function Weather() {
           containerComponent={<VictoryVoronoiContainer />}
           height={300} width={1200}
           domainPadding={{ x: 0, y: 0 }}
-          style={{ parent: { border: "0px solid #FFFFFF" }, background: { fill: "#76A4FF" }}}>
-        
+          style={{ parent: { border: "0px solid #FFFFFF" }, background: { fill: "#76A4FF" } }}>
+
 
           <VictoryLine // lisää lämpötila viivan
             style={{
@@ -72,23 +88,23 @@ function Weather() {
             domain={{}}
             scale={{ x: "time", y: "linear" }}
             standalone={false}
-            data={Temperature}
+            data={Temperature} // mistä otetaan dataa
             interpolation="linear" />
           <VictoryScatter // lisää pienet pallot joista näkee tarkemmin lämpotilan
-            style={{ data: { fill: "#00D1FF  " }, labels: { fill: "#00D1FF" } }}
+            style={{ data: { fill: "#00D1FF " }, labels: { fill: "#00D1FF" } }} // vaihtaa eka pallojen värin sitten pallojen tekstin värin
             size={({ active }) => active ? 5 : 3} // pallojen koko
             labels={({ datum }) => ` ${datum.y}°C`} //pallojen teksti
             labelComponent={<VictoryTooltip />}   //lisää tooltipin pieniin palloihin 
             data={Temperature} />
         </VictoryChart>
 
-            <h2> Kosteus % </h2>
+        <h2> Kosteus % </h2>
 
         <VictoryChart // ilman kosteuden chart
-           // chartin teema voi olla custom teema 
+          // chartin teema voi olla custom teema 
           height={450} width={1400} // kuinka suuri chart on
           domainPadding={{ x: 0, y: 0 }}
-          style={{ parent: { border: "0px solid #76A4FF" }, background: { fill: "#76A4FF" }}}>
+          style={{ parent: { border: "0px solid #76A4FF" }, background: { fill: "#76A4FF" } }}>
 
           <VictoryBar //ilman kosteuden bar chart
             cornerRadius={{ top: 5 }} // tekee barin kulmista pyöreitä
@@ -102,12 +118,12 @@ function Weather() {
                 VerticalAnchor="left"
                 style={[{ fill: "#02ffff " }]} />}
             alignment="start"
-            domain={{y: [0,100] }}
+            domain={{ y: [0, 100] }}
             data={Humidity}
             standalone={false}
           />
         </VictoryChart>
-        
+
       </body>
     </div>
   )
