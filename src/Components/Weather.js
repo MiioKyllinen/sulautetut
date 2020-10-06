@@ -28,29 +28,9 @@ function Weather() {
   const [weather, setWeather] = useState(initWeather);
 
   fetch('https://funcvariaiot.azurewebsites.net/api/HttpTriggerGetIotData?code=qO5qkShg0osHqY0BB2nfXI/anPgQ/K/3mIF7VTCFfaTdrvo6wl6DKw==&amount=25')
-   /* .then(response => {
-      const DeviceIdCheck = response.headers.get('content-type');
-        if (!DeviceIdCheck || !DeviceIdCheck.includes('37002e001947393035313138')) {
-          throw new TypeError("Wrong Device ID");
-        }
-        return response.json()
-        .catch((err) => {
-          console.error('Jokin meni pieleen',err);
-        }
-        
-        
-        )
+    .then(response => response.json()) // vaihdetaan tieto json muotoon
+    .then(json => setWeather([...json])) 
 
-      }
-    ) 
-      */
-
-
-    .then(response => response.json())
-    .then(json => setWeather([...json]))
-
-   // .catch(error => console.error(error));
-  // if (DeviceId === 3002e001947393035313138)
 
   let humtempkey = 1;
   let chartDataTemp = [];
@@ -75,10 +55,9 @@ function Weather() {
         <h2> Lämpötila °C </h2>
         <VictoryChart
           containerComponent={<VictoryVoronoiContainer />}
-          height={300} width={1200}
-          domainPadding={{ x: 0, y: 0 }}
-          style={{ parent: { border: "0px solid #FFFFFF" }, background: { fill: "#76A4FF" } }}>
-
+          height={300} width={1200} // määrittelee chartin korkeuden ja pituuden
+          domainPadding={{ x: 0, y: 0 }} // lisää "pehmustetta" chartille jos ei halua että se esim koskee sivun seiniin
+          style={{ parent: { border: "0px solid #FFFFFF" }, background: { fill: "#76A4FF" } }}>   
 
           <VictoryLine // lisää lämpötila viivan
             style={{
@@ -112,12 +91,12 @@ function Weather() {
             labels={({ datum }) => ` ${datum.y}%`} // lisää % joka tulee barin päälle joka kertoo sitten kosteuden tarkasti
             labelComponent={
               <VictoryLabel //tämä päättää missä kohtaa bar charttia teksti tulee näkyviin
-                dx={1.2}
+                dx={1.2} // tekstin X ja Y offset
                 dy={0.5}
-                textAnchor="start"
+                textAnchor="start" 
                 VerticalAnchor="left"
                 style={[{ fill: "#02ffff " }]} />}
-            alignment="start"
+            alignment="start" // mihin kohtaan pylväs tulee
             domain={{ y: [0, 100] }}
             data={Humidity}
             standalone={false}
